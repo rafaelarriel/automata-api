@@ -127,3 +127,78 @@ caso rejeite
 GET turing-machines/{pda_id}/visualize"
 GET turing-machines/1/visualize"
 retorna o arquivo
+
+more examples
+# 1️ Turing machine to invert a binary string
+{
+  "name": "InvertBinaryTM",
+  "states": ["q0", "q1", "qf"],
+  "input_symbols": ["0", "1"],
+  "tape_symbols": ["0", "1", "_"],
+  "transitions": {
+    "q0": {
+      "0": ["q0", "1", "R"],
+      "1": ["q0", "0", "R"],
+      "_": ["qf", "_", "N"]
+    }
+  },
+  "initial_state": "q0",
+  "blank_symbol": "_",
+  "final_states": ["qf"]
+}
+
+# 2 Turing machine for adding 1 to a binary number
+{
+  "name": "BinaryIncrementTM",
+  "states": ["q0", "q1", "q2", "qf"],
+  "input_symbols": ["0", "1"],
+  "tape_symbols": ["0", "1", "_"],
+  "transitions": {
+    "q0": {
+      "0": ["q0", "0", "R"],
+      "1": ["q0", "1", "R"],
+      "_": ["q1", "_", "L"]
+    },
+    "q1": {
+      "0": ["qf", "1", "N"],
+      "1": ["q1", "0", "L"],
+      "_": ["qf", "1", "N"]
+    }
+  },
+  "initial_state": "q0",
+  "blank_symbol": "_",
+  "final_states": ["qf"]
+}
+
+# 3 Turing machine to check if a binary string is a palindrome
+{
+  "name": "PalindromeCheckerTM",
+  "states": ["q0", "q1", "q2", "q3", "qf", "qr"],
+  "input_symbols": ["0", "1"],
+  "tape_symbols": ["0", "1", "_", "X"],
+  "transitions": {
+    "q0": {
+      "0": ["q1", "X", "R"],
+      "1": ["q2", "X", "R"],
+      "_": ["qf", "_", "N"]
+    },
+    "q1": {
+      "0": ["q1", "0", "R"],
+      "1": ["q1", "1", "R"],
+      "_": ["q3", "_", "L"]
+    },
+    "q2": {
+      "0": ["q2", "0", "R"],
+      "1": ["q2", "1", "R"],
+      "_": ["q3", "_", "L"]
+    },
+    "q3": {
+      "X": ["qf", "X", "N"],
+      "0": ["qr", "0", "N"],
+      "1": ["qr", "1", "N"]
+    }
+  },
+  "initial_state": "q0",
+  "blank_symbol": "_",
+  "final_states": ["qf"]
+}
