@@ -128,3 +128,101 @@ caso rejeite
 GET pushdown-automata/{pda_id}/visualize"
 GET pushdown-automata/1/visualize"
 retorna o arquivo
+
+more examples
+# 1 PDA to recognize language L = { aⁿbⁿ | n ≥ 1 }
+{
+  "name": "EqualAB",
+  "states": ["q0", "q1", "qf"],
+  "input_symbols": ["a", "b"],
+  "stack_symbols": ["X", "Z"],
+  "transitions": {
+    "q0": {
+      "a": {
+        "Z": ["q0", ["X", "Z"]],
+        "X": ["q0", ["X", "X"]]
+      },
+      "b": {
+        "X": ["q1", []]
+      }
+    },
+    "q1": {
+      "b": {
+        "X": ["q1", []]
+      }
+    }
+  },
+  "initial_state": "q0",
+  "initial_stack_symbol": "Z",
+  "final_states": ["q1"]
+}
+
+# 2 PDA to recognize palindromes on { a, b }
+{
+  "name": "PalindromePDA",
+  "states": ["q0", "q1", "q2", "qf"],
+  "input_symbols": ["a", "b"],
+  "stack_symbols": ["A", "B", "Z"],
+  "transitions": {
+    "q0": {
+      "a": {
+        "Z": ["q0", ["A", "Z"]],
+        "A": ["q0", ["A", "A"]],
+        "B": ["q0", ["A", "B"]]
+      },
+      "b": {
+        "Z": ["q0", ["B", "Z"]],
+        "A": ["q0", ["B", "A"]],
+        "B": ["q0", ["B", "B"]]
+      },
+      "": {
+        "Z": ["q1", ["Z"]]
+      }
+    },
+    "q1": {
+      "a": {
+        "A": ["q1", []]
+      },
+      "b": {
+        "B": ["q1", []]
+      },
+      "": {
+        "Z": ["qf", ["Z"]]
+      }
+    }
+  },
+  "initial_state": "q0",
+  "initial_stack_symbol": "Z",
+  "final_states": ["qf"]
+}
+
+# 3 PDA to recognize language L = { aⁿb²ⁿ | n ≥ 1 }
+{
+  "name": "DoubleB",
+  "states": ["q0", "q1", "qf"],
+  "input_symbols": ["a", "b"],
+  "stack_symbols": ["X", "Z"],
+  "transitions": {
+    "q0": {
+      "a": {
+        "Z": ["q0", ["X", "Z"]],
+        "X": ["q0", ["X", "X"]]
+      },
+      "b": {
+        "X": ["q1", ["X"]],
+        "Z": ["q1", ["X", "Z"]]
+      }
+    },
+    "q1": {
+      "b": {
+        "X": ["q0", []]
+      },
+      "": {
+        "Z": ["qf", ["Z"]]
+      }
+    }
+  },
+  "initial_state": "q0",
+  "initial_stack_symbol": "Z",
+  "final_states": ["qf"]
+}
