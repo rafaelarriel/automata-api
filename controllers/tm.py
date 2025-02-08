@@ -31,7 +31,6 @@ def list_all_tm(db: Session = Depends(get_db)):
     tms = db.query(TuringMachine).all()
     return tms
 
-# Endpoint para recuperar uma Máquina de Turing (MT) por ID
 @router.get("/{tm_id}")
 def get_tm(tm_id: int, db: Session = Depends(get_db)):
     tm = db.query(TuringMachine).filter(TuringMachine.id == tm_id).first()
@@ -39,14 +38,12 @@ def get_tm(tm_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Máquina de Turing não encontrada")
     return tm
 
-# Endpoint para testar a aceitação de uma string por uma MT
 @router.post("/{tm_id}/accept")
 def test_tm_acceptance(tm_id: int, input_string: str, db: Session = Depends(get_db)):
     tm = db.query(TuringMachine).filter(TuringMachine.id == tm_id).first()
     if not tm:
         raise HTTPException(status_code=404, detail="Máquina de Turing não encontrada")
     
-    # Cria um objeto DTM a partir dos dados do banco de dados
     tm_model = DTM(
         states=set(tm.states),
         input_symbols=set(tm.input_symbols),
@@ -57,7 +54,6 @@ def test_tm_acceptance(tm_id: int, input_string: str, db: Session = Depends(get_
         final_states=set(tm.final_states)
     )
     
-    # Testa a aceitação da string
     accepts = tm_model.accepts_input(input_string)
     return {"accepts": accepts}
 
@@ -80,8 +76,6 @@ def turing_machine_visualize(mt_id: int, db: Session = Depends(get_db)):
     dot = mt_model.show_diagram()
     dot.format = "png"
 
-    # Renderiza o diagrama em memória
     image_stream = io.BytesIO(dot.pipe(format="png"))
 
-    # Retorna o arquivo como uma resposta HTTP
     return StreamingResponse(image_stream, media_type="image/png", headers={"Content-Disposition": "inline; filename=automaton.png"})

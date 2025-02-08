@@ -9,7 +9,6 @@ import io
 
 router = APIRouter(prefix="/pushdown-automata")
 
-# Endpoint para criar um Autômato com Pilha (AP)
 @router.post("")
 def create_pda(pda: PushdownAutomatonSchema, db: Session = Depends(get_db)):
     db_pda = PushdownAutomaton(
@@ -32,7 +31,6 @@ def list_all_pda(db: Session = Depends(get_db)):
     pdas = db.query(PushdownAutomaton).all()
     return pdas
 
-# Endpoint para recuperar um Autômato com Pilha (AP) por ID
 @router.get("/{pda_id}")
 def get_pda(pda_id: int, db: Session = Depends(get_db)):
     pda = db.query(PushdownAutomaton).filter(PushdownAutomaton.id == pda_id).first()
@@ -40,14 +38,12 @@ def get_pda(pda_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="PDA não encontrado")
     return pda
 
-# Endpoint para testar a aceitação de uma string por um AP
 @router.post("/{pda_id}/accept")
 def test_pda_acceptance(pda_id: int, input_string: str, db: Session = Depends(get_db)):
     pda = db.query(PushdownAutomaton).filter(PushdownAutomaton.id == pda_id).first()
     if not pda:
         raise HTTPException(status_code=404, detail="PDA não encontrado")
     
-    # Cria um objeto DPDA a partir dos dados do banco de dados
     pda_model = DPDA(
         states=set(pda.states),
         input_symbols=set(pda.input_symbols),
@@ -58,7 +54,6 @@ def test_pda_acceptance(pda_id: int, input_string: str, db: Session = Depends(ge
         final_states=set(pda.final_states)
     )
     
-    # Testa a aceitação da string
     accepts = pda_model.accepts_input(input_string)
     return {"accepts": accepts}
 
@@ -81,8 +76,6 @@ def pushdown_automaton_visualize(ap_id: int, db: Session = Depends(get_db)):
     dot = ap_model.show_diagram()
     dot.format = "png"
 
-    # Renderiza o diagrama em memória
     image_stream = io.BytesIO(dot.pipe(format="png"))
 
-    # Retorna o arquivo como uma resposta HTTP
     return StreamingResponse(image_stream, media_type="image/png", headers={"Content-Disposition": "inline; filename=automaton.png"})
