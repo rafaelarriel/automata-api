@@ -14,13 +14,12 @@ API for handling and simulating automata, including:
 - **Uvicorn** (ASGI Server)
 - **Pydantic** (Data validation)
 - **Graphviz / PyGraphviz** (Automata visualization)
-- **pytest** (Automated testing)
 
 ## 📦 Installation
 
 ### 1️⃣ **Clone the repository**
 ```bash
-git clone https://github.com/your-username/automata-api.git
+git clone https://github.com/rafaelarriel/automata-api.git
 cd automata-api
 ```
 
@@ -122,13 +121,12 @@ API para manipulação e simulação de autômatos, incluindo:
 - **Uvicorn** (Servidor ASGI)
 - **Pydantic** (Validação de dados)
 - **Graphviz / PyGraphviz** (Visualização de autômatos)
-- **pytest** (Testes automatizados)
 
 ## 📦 Instalação
 
 ### 1️⃣ **Clone o repositório**
 ```bash
-git clone https://github.com/seu-usuario/automata-api.git
+git clone https://github.com/rafaelarriel/automata-api.git
 cd automata-api
 ```
 
