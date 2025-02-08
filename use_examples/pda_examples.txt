@@ -1,0 +1,130 @@
+POST /pushdown-automata
+{
+  "name": "SimplePDA",
+  "states": ["q0", "q1", "qf"],
+  "input_symbols": ["a", "b"],
+  "stack_symbols": ["X", "Z"],
+  "transitions": {
+      "q0": {
+          "a": {
+              "Z": ["q1", ["X", "Z"]]
+          }
+      },
+      "q1": {
+          "b": {
+              "X": ["qf", []]
+          }
+      }
+  },
+  "initial_state": "q0",
+  "initial_stack_symbol": "Z",
+  "final_states": ["qf"]
+}
+
+GET /pushdown-automata
+[
+  {
+    "name": "SimplePDA",
+    "states": [
+      "q0",
+      "q1",
+      "qf"
+    ],
+    "stack_symbols": [
+      "X",
+      "Z"
+    ],
+    "initial_state": "q0",
+    "final_states": [
+      "qf"
+    ],
+    "id": 1,
+    "input_symbols": [
+      "a",
+      "b"
+    ],
+    "transitions": {
+      "q0": {
+        "a": {
+          "Z": [
+            "q1",
+            [
+              "X",
+              "Z"
+            ]
+          ]
+        }
+      },
+      "q1": {
+        "b": {
+          "X": [
+            "qf",
+            []
+          ]
+        }
+      }
+    },
+    "initial_stack_symbol": "Z"
+  }
+]
+
+GET /pushdown-automata/{pda_id}
+GET /pushdown-automata/1
+{
+  "name": "SimplePDA",
+  "states": [
+    "q0",
+    "q1",
+    "qf"
+  ],
+  "stack_symbols": [
+    "X",
+    "Z"
+  ],
+  "initial_state": "q0",
+  "final_states": [
+    "qf"
+  ],
+  "id": 1,
+  "input_symbols": [
+    "a",
+    "b"
+  ],
+  "transitions": {
+    "q0": {
+      "a": {
+        "Z": [
+          "q1",
+          [
+            "X",
+            "Z"
+          ]
+        ]
+      }
+    },
+    "q1": {
+      "b": {
+        "X": [
+          "qf",
+          []
+        ]
+      }
+    }
+  },
+  "initial_stack_symbol": "Z"
+}
+
+POST /pushdown-automata/{pda_id}/accept
+POST /pushdown-automata/{pda_id}/accept?input_string=ab
+caso aceite
+{
+  "accepts": true
+}
+caso rejeite
+{
+  "accepts": false
+}
+
+GET pushdown-automata/{pda_id}/visualize"
+GET pushdown-automata/1/visualize"
+retorna o arquivo

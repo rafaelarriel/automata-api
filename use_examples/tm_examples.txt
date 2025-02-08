@@ -1,0 +1,129 @@
+POST /turing-machines
+{
+  "name": "SimpleTM",
+  "states": ["q0", "q1", "qf"],
+  "input_symbols": ["0", "1"],
+  "tape_symbols": ["0", "1", "_"],
+  "transitions": {
+    "q0": {
+      "0": ["q1", "1", "R"],
+      "1": ["qf", "1", "N"]
+    },
+    "q1": {
+      "0": ["q0", "0", "L"]
+    }
+  },
+  "initial_state": "q0",
+  "blank_symbol": "_",
+  "final_states": ["qf"]
+}
+
+GET /turing-machines
+[
+  {
+    "name": "SimpleTM",
+    "states": [
+      "q0",
+      "q1",
+      "qf"
+    ],
+    "tape_symbols": [
+      "0",
+      "1",
+      "_"
+    ],
+    "initial_state": "q0",
+    "final_states": [
+      "qf"
+    ],
+    "input_symbols": [
+      "0",
+      "1"
+    ],
+    "id": 1,
+    "transitions": {
+      "q0": {
+        "0": [
+          "q1",
+          "1",
+          "R"
+        ],
+        "1": [
+          "qf",
+          "1",
+          "N"
+        ]
+      },
+      "q1": {
+        "0": [
+          "q0",
+          "0",
+          "L"
+        ]
+      }
+    },
+    "blank_symbol": "_"
+  }
+]
+
+GET /turing-machines/{pda_id}
+GET /turing-machines/1
+{
+  "name": "SimpleTM",
+  "states": [
+    "q0",
+    "q1",
+    "qf"
+  ],
+  "tape_symbols": [
+    "0",
+    "1",
+    "_"
+  ],
+  "initial_state": "q0",
+  "final_states": [
+    "qf"
+  ],
+  "input_symbols": [
+    "0",
+    "1"
+  ],
+  "id": 1,
+  "transitions": {
+    "q0": {
+      "0": [
+        "q1",
+        "1",
+        "R"
+      ],
+      "1": [
+        "qf",
+        "1",
+        "N"
+      ]
+    },
+    "q1": {
+      "0": [
+        "q0",
+        "0",
+        "L"
+      ]
+    }
+  },
+  "blank_symbol": "_"
+}
+
+POST /turing-machines/{pda_id}/accept
+POST /turing-machines/{pda_id}/accept?input_string=01
+caso aceite
+{
+  "accepts": true
+}
+caso rejeite
+{
+  "accepts": false
+}
+
+GET turing-machines/{pda_id}/visualize"
+GET turing-machines/1/visualize"
+retorna o arquivo
