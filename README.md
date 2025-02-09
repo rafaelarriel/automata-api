@@ -58,12 +58,6 @@ alembic upgrade head
 uvicorn main:app --reload
 ```
 
-## 🧪 Running Tests
-
-```bash
-pytest
-```
-
 ## 📡 Available Endpoints
 
 Access the interactive API documentation via:
@@ -139,7 +133,8 @@ venv\Scripts\activate  # Windows
 
 ### 3️⃣ **Instalar dependências**
 ```bash
-pip install fastapi sqlalchemy alembic uvicorn pydantic graphviz pygraphviz coloraide python-dotenv
+pip install fastapi sqlalchemy alembic uvicorn pydantic psycopg2 automata-lib python-dotenv
+pip install graphviz pygraphviz coloraide
 ```
 
 ## 🛠️ Configuração do Banco de Dados
@@ -163,13 +158,6 @@ alembic upgrade head
 ```bash
 uvicorn main:app --reload
 ```
-
-## 🧪 Executando Testes
-
-```bash
-pytest
-```
-
 ## 📡 Endpoints Disponíveis
 
 Acesse a documentação interativa da API via:
